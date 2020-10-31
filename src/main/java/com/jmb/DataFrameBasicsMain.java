@@ -27,7 +27,7 @@ public class DataFrameBasicsMain {
 
         // Reads a CSV file with header, called books.csv, stores it in a
         // DataFrame
-        Dataset<Row> df = sparkSession.read().format("csv")
+        Dataset<Row> df = sparkSession.read().format(FORMAT)
                 .option("header", "true")
                 .load("data/electronic-card-transactions.csv");
 

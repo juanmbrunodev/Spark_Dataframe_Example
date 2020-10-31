@@ -10,5 +10,5 @@ RUN mvn install
 
 FROM openjdk:8-jre-alpine
 WORKDIR app
-COPY --from=build /app/target/dataframe-basics-1.0-SNAPSHOT.jar /app
-CMD ["java", "-jar",  "dataframe-basics-1.0-SNAPSHOT.jar"]
+COPY --from=build /app/target/dataframe-basics-1.0-SNAPSHOT-jar-with-dependencies.jar /app
+CMD ["java", "-jar",  "dataframe-basics-1.0-SNAPSHOT-jar-with-dependencies.jar"]
