@@ -11,5 +11,5 @@ RUN mvn install
 FROM openjdk:8-jre-alpine
 WORKDIR app
 COPY --from=build /app/target/dataframe-basics-1.0-SNAPSHOT-jar-with-dependencies.jar /app
-COPY --from=build /app/target/classes/spark-data/electronic-card-transactions.csv /app/spark-data
+COPY --from=build /app/target/classes/spark-data/ /app/spark-data
 CMD ["java", "-jar",  "dataframe-basics-1.0-SNAPSHOT-jar-with-dependencies.jar"]
