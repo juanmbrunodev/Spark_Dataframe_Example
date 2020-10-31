@@ -29,7 +29,7 @@ public class DataFrameBasicsMain {
         // DataFrame
         Dataset<Row> df = sparkSession.read().format(FORMAT)
                 .option("header", "true")
-                .load("data/electronic-card-transactions.csv");
+                .load("spark-data/electronic-card-transactions.csv");
 
         //Show the first 15 rows
         df.show(15);
