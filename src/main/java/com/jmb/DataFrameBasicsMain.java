@@ -25,15 +25,11 @@ public class DataFrameBasicsMain {
                 .master(LOCAL_NODE_ID)
                 .getOrCreate();
 
-        ClassLoader classLoader = DataFrameBasicsMain.class.getClassLoader();
-        String resource = classLoader.getResource("data/electronic-card-transactions.csv")
-                .toString();
-
         // Reads a CSV file with header, called books.csv, stores it in a
         // DataFrame
         Dataset<Row> df = sparkSession.read().format("csv")
                 .option("header", "true")
-                .load(resource);
+                .load("data/electronic-card-transactions.csv");
 
         //Show the first 15 rows
         df.show(15);
