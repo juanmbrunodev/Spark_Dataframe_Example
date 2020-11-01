@@ -26,10 +26,16 @@ public class DataFrameBasicsMain {
                 .getOrCreate();
 
         // Reads a CSV file with header, called books.csv, stores it in a
-        // DataFrame
+        // Dataset<Row> (Java DataFrame)
         Dataset<Row> df = sparkSession.read().format(FORMAT)
                 .option("header", "true")
-                .load("spark-data/electronic-card-transactions.csv");
+                .load("src/main/resources/spark-data/electronic-card-transactions.csv");
+
+        /*Uncomment if running from Docker Image, and replace above with this
+                        .load("spark-data/electronic-card-transactions.csv");
+
+        This also means that the csv file with the information to process should be located in a
+        folder in the same directory as this project */
 
         //Show the first 15 rows
         df.show(15);
