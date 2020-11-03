@@ -1,0 +1,60 @@
+# Ubuntu 14.04 LTS
+# Oracle Java 1.8.0_11 64 bit
+# Maven 3.2.2
+# git 1.9.1
+# vim
+# AppCollector
+
+# extend the most recent long term support Ubuntu version
+FROM ubuntu:14.04
+
+MAINTAINER JUAN BRUNO (juan.marcos.bruno@protonmail.com)
+
+# this is a non-interactive automated build - avoid some warning messages
+ENV DEBIAN_FRONTEND noninteractive
+
+# update dpkg repositories
+RUN apt-get update
+
+# install wget
+RUN apt-get install -y wget
+
+# get maven 3.2.2
+RUN wget --no-verbose -O /tmp/apache-maven-3.6.0.tar.gz http://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz
+
+# install maven
+RUN tar xzf /tmp/apache-maven-3.6.0.tar.gz -C /opt/
+RUN ln -s /opt/apache-maven-3.6.0 /opt/maven
+RUN ln -s /opt/maven/bin/mvn /usr/local/bin
+RUN rm -f /tmp/apache-maven-3.6.0.tar.gz
+ENV MAVEN_HOME /opt/maven
+
+# install git
+RUN apt-get install -y git
+
+# install vim
+RUN apt-get install -y vim
+
+# remove download archive files
+RUN apt-get clean
+
+# set shell variables for java installation
+ENV java_version 1.8.0_11
+ENV filename openlogic-openjdk-8u262-b10-linux-x64.tar.gz
+ENV downloadlink https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u262-b10/openlogic-openjdk-8u262-b10-linux-x64.tar.gz
+
+# download java, accepting the license agreement
+RUN wget --no-cookies -O /tmp/$filename $downloadlink
+
+# unpack java
+RUN mkdir /opt/java-oracle && tar -zxf /tmp/$filename -C /opt/java-oracle/
+RUN ls -la /opt/java-oracle/
+ENV JAVA_HOME /opt/java-oracle/openlogic-openjdk-8u262-b10-linux-64
+ENV PATH $JAVA_HOME/bin:$PATH
+RUN echo $JAVA_HOME
+# configure symbolic links for the java and javac executables
+RUN update-alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 20000 && update-alternatives --install /usr/bin/javac javac $JAVA_HOME/bin/javac 20000
+
+# Check versions are installed on terminal
+RUN java -version
+RUN mvn --version
