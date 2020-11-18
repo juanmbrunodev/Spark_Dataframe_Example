@@ -18,11 +18,15 @@ public class DataFrameBasicsMain {
     }
 
     private static void init() {
+        
+        SparkConf appConfig = new SparkConf().set("spark.driver.memory", "700m")
+                .set("spark.executor.memory", "500m");
 
         //Create the spark session on the localhost master node
         SparkSession sparkSession = SparkSession.builder()
                 .appName(APP_NAME)
                 .master(LOCAL_NODE_ID)
+                .config(appConfig)
                 .getOrCreate();
 
         // Reads a CSV file with header, stores it in a DataFrame
