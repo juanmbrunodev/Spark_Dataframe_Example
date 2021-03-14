@@ -20,8 +20,7 @@ public class DataFrameBasicsMain {
 
     private static void init() {
         
-        SparkConf appConfig = new SparkConf().set("spark.driver.memory", "700m")
-                .set("spark.executor.memory", "500m");
+        SparkConf appConfig = new SparkConf().set("spark.testing.memory", "400m");
 
         //Create the spark session on the localhost master node
         SparkSession sparkSession = SparkSession.builder()
