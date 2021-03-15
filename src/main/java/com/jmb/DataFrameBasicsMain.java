@@ -20,8 +20,7 @@ public class DataFrameBasicsMain {
 
     private static void init() {
         
-        SparkConf appConfig = new SparkConf().set("spark.driver.memory", "700m")
-                .set("spark.executor.memory", "500m");
+        SparkConf appConfig = new SparkConf();
 
         //Create the spark session on the localhost master node
         SparkSession sparkSession = SparkSession.builder()
@@ -34,12 +33,6 @@ public class DataFrameBasicsMain {
         Dataset<Row> df = sparkSession.read().format(FORMAT)
                 .option("header", "true")
                 .load("src/main/resources/spark-data/electronic-card-transactions.csv");
-
-        /*Uncomment if running from Docker Image, and replace above with this
-                        .load("spark-data/electronic-card-transactions.csv");
-
-        This also means that for docker, the csv file with the information to process should be located in a
-        folder in the same directory as this project */
 
         //Show the first 15 rows
         df.show(15);
